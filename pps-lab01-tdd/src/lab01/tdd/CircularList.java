@@ -2,53 +2,43 @@ package lab01.tdd;
 
 import java.util.Optional;
 
-/**
- * Represents a circular list of integers, where the following element of the last one into the list
- * is the first element of the list itself.
- */
-public interface CircularList {
+public class CircularList extends AbstractList {
+    private int stepsCounter;
 
-    /**
-     * Adds an element into the first available place
-     * @param element the element to be added to the list
-     */
-    void add(final int element);
+    @Override
+    public Optional<Integer> next() {
+        if(isEmpty())
+            return Optional.empty();
+        stepsCounter++;
+        if(actualPosition < size()-1) actualPosition++; else actualPosition = 0;
+        return Optional.of(array.get(calculatePosition()));
+    }
 
-    /**
-     * Provides the current size of the list
-     * @return the size of the list
-     */
-    int size();
+    private int calculatePosition(){
+        if(actualPosition == 1 && stepsCounter == 1) actualPosition--;
+        return actualPosition;
+    }
 
-    /**
-     * Checks if the list is empty
-     * @return true if the list is empty, false otherwise
-     */
-    boolean isEmpty();
+    @Override
+    public Optional<Integer> previous() {
+        if(isEmpty())
+            return Optional.empty();
+        if(actualPosition > 0) actualPosition--; else actualPosition = size()-1;
+        return Optional.of(array.get(actualPosition));
+    }
 
-    /**
-     * Provides the next element of the list. Example: having a list like {1,2,3} the first call of next() returns 1,
-     * the second call returns 2, then 3 is returned to the third call. Finally, the fourth one return 1 again,
-     * because the circular mechanism.
-     * @return the next element into the list
-     */
-    Optional<Integer> next();
+    @Override
+    public void reset() {
+        this.stepsCounter = 0;
+        this.actualPosition = 0;
+    }
 
-    /**
-     * Provides the previous element of the list. Its behaviour is dual of the next() method.
-     * @return the previous element into the list
-     */
-    Optional<Integer> previous();
-
-    /**
-     * Reset the current element to the first one of the list. The first one is the first added to the list.
-     */
-    void reset();
-
-    /**
-     * Provides the next element of the list according to the injected strategy.
-     * @param strategy the strategy to be used (e.g., the next even element, the next odd element, etc.)
-     * @return the next element of the list according to the strategy.
-     */
-    Optional<Integer> next(final SelectStrategy strategy);
+    @Override
+    public Optional<Integer> next(SelectStrategy strategy) {
+        for(int i=0; i<size(); i++){
+            Optional<Integer> element = next();
+            if(element.isPresent() && strategy.apply(element.get())) return element;
+        }
+        return Optional.empty();
+    }
 }
