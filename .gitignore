@@ -22,3 +22,6 @@
 *.kate-swp
 *.cache
 .idea/workspace.xml
+.idea/uiDesigner.xml
+.idea/*.xml
+.idea/codeStyles/Project.xml
