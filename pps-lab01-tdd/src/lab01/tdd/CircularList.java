@@ -6,7 +6,7 @@ public class CircularList extends AbstractList {
     private int stepsCounter;
 
     @Override
-    public Optional<Integer> next() {
+    public int next() {
         if(isEmpty())
             return Optional.empty();
         stepsCounter++;
@@ -20,7 +20,7 @@ public class CircularList extends AbstractList {
     }
 
     @Override
-    public Optional<Integer> previous() {
+    public int previous() {
         if(isEmpty())
             return Optional.empty();
         if(actualPosition > 0) actualPosition--; else actualPosition = size()-1;

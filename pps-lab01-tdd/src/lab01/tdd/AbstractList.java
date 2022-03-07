@@ -29,10 +29,10 @@ public abstract class AbstractList implements List {
     }
 
     @Override
-    public abstract Optional<Integer> next();
+    public abstract int next();
 
     @Override
-    public abstract Optional<Integer> previous();
+    public abstract int previous();
 
     @Override
     public abstract void reset();

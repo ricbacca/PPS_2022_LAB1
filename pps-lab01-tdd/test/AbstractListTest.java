@@ -43,22 +43,22 @@ public abstract class AbstractListTest {
         }
     }
 
-    protected ArrayList<Optional<Integer>> makeExpectedArray(final int[] elements){
-        ArrayList<Optional<Integer>> expected = new ArrayList<>();
-        stream(elements).forEach(x -> expected.add(Optional.of(x)));
+    protected List makeExpectedArray(final int[] elements){
+        List expected = (List) new ArrayList<Optional<Integer>>();
+        stream(elements).forEach(expected::add);
         return expected;
     }
 
-    protected ArrayList<Optional<Integer>> makeNextCalls(final int number){
-        ArrayList<Optional<Integer>> result = new ArrayList<>();
+    protected List makeNextCalls(final int number){
+        List result = (List) new ArrayList<Optional<Integer>>();
         for(int i=0; i<number; i++){
             result.add(list.next());
         }
         return result;
     }
 
-    protected ArrayList<Optional<Integer>> makePreviousCalls(final int number){
-        ArrayList<Optional<Integer>> result = new ArrayList<>();
+    protected List makePreviousCalls(final int number){
+        List result = (List) new ArrayList<Optional<Integer>>();
         for(int i=0; i<number; i++){
             result.add(list.previous());
         }

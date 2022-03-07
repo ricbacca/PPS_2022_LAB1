@@ -32,13 +32,13 @@ public interface List {
      * because the circular mechanism.
      * @return the next element into the list
      */
-    Optional<Integer> next();
+    int next();
 
     /**
      * Provides the previous element of the list. Its behaviour is dual of the next() method.
      * @return the previous element into the list
      */
-    Optional<Integer> previous();
+    int previous();
 
     /**
      * Reset the current element to the first one of the list. The first one is the first added to the list.
